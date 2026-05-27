@@ -113,6 +113,33 @@
       padding-bottom: 1px;
     }
     .filters::-webkit-scrollbar { display: none; }
+
+    .filter-row-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .filter-label {
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      padding: 0 2px;
+      flex-shrink: 0;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filters-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 2px 0;
+      opacity: 0.6;
+    }
     .chip {
       flex-shrink: 0;
       border: 1px solid var(--border);
@@ -527,7 +554,17 @@
     <span class="search-icon">⟲</span>
     <input type="search" id="search" placeholder="Buscar magia…" autocomplete="off" autocorrect="off" spellcheck="false">
   </div>
-  <div class="filters" id="school-filters"></div>
+  <div class="filter-row-wrap" id="filter-wrap">
+    <div class="filter-row">
+      <span class="filter-label">Escola</span>
+      <div class="filters" id="school-filters"></div>
+    </div>
+    <div class="filters-divider"></div>
+    <div class="filter-row">
+      <span class="filter-label">Classe</span>
+      <div class="filters" id="class-filters"></div>
+    </div>
+  </div>
 </div>
 
 <!-- CONTENT -->
@@ -607,7 +644,18 @@ const SC = {
 
 const CLASS_ICONS = {
   "Bardo":"🎵","Bruxo":"🕷","Clérigo":"⛪","Druida":"🌿",
-  "Feiticeiro":"🌟","Guardião":"🏹","Mago":"📚","Paladino":"⚔",
+  "Feiticeiro":"🌟","Guardião":"🏹","Mago":"📚","Paladino":"⚔️","Ladino":"🗡️",
+};
+
+const CLASS_COLORS = {
+  "Bardo":      "#c2185b",
+  "Clérigo":    "#f57c00",
+  "Druida":     "#558b2f",
+  "Feiticeiro": "#6a1b9a",
+  "Guardião":   "#00838f",
+  "Mago":       "#1565c0",
+  "Paladino":   "#b8860b",
+  "Ladino":     "#546e7a",
 };
 
 /* ══════════════════════════════════════
@@ -615,6 +663,7 @@ const CLASS_ICONS = {
 ══════════════════════════════════════ */
 let allSpells = [];
 let activeSchool = null;
+let activeClass  = null;
 let searchVal = '';
 let currentTab = 'all';
 let currentSpell = null;
@@ -634,7 +683,7 @@ function switchTab(tab) {
   document.getElementById('nav-all').classList.toggle('active', tab === 'all');
   document.getElementById('nav-fav').classList.toggle('active', tab === 'fav');
   document.getElementById('search-wrap').style.display = tab === 'all' ? '' : 'none';
-  document.getElementById('school-filters').style.display = tab === 'all' ? '' : 'none';
+  document.getElementById('filter-wrap').style.display  = tab === 'all' ? '' : 'none';
 
   if (tab === 'fav') renderFavs();
 }
@@ -684,6 +733,7 @@ function renderAll() {
   const q = searchVal.toLowerCase();
   const list = allSpells.filter(s => {
     if (activeSchool && s.school !== activeSchool) return false;
+    if (activeClass  && !s.classes.includes(activeClass)) return false;
     if (q && !s.name.toLowerCase().includes(q) && !s.school.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -895,6 +945,30 @@ function buildFilters() {
 }
 
 /* ══════════════════════════════════════
+   CLASS FILTERS
+══════════════════════════════════════ */
+const CLASSES = ['Bardo','Clérigo','Druida','Feiticeiro','Guardião','Mago','Paladino','Ladino'];
+
+function buildClassFilters() {
+  const c = document.getElementById('class-filters');
+  let html = `<button class="chip active" style="--chip-color:var(--gold)" data-class="">Todas</button>`;
+  CLASSES.forEach(cls => {
+    const color = CLASS_COLORS[cls] || '#888';
+    const icon  = CLASS_ICONS[cls]  || '';
+    html += `<button class="chip" style="--chip-color:${color}" data-class="${cls}">${icon} ${cls}</button>`;
+  });
+  c.innerHTML = html;
+  c.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeClass = btn.dataset.class || null;
+      c.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAll();
+    });
+  });
+}
+
+/* ══════════════════════════════════════
    SEARCH
 ══════════════════════════════════════ */
 document.getElementById('search').addEventListener('input', e => {
@@ -914,6 +988,7 @@ fetch('spells.json')
       return a.name.localeCompare(b.name, 'pt-BR');
     });
     buildFilters();
+    buildClassFilters();
     renderAll();
     updateBadge();
   })
