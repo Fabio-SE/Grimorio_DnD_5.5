@@ -84,6 +84,25 @@
     "ritual": false
   },
   {
+    "name": "Amigos",
+    "circle": 0,
+    "school": "Encantamento",
+    "classes": [
+      "Bardo",
+      "Bruxo",
+      "Feiticeiro",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "Pessoal",
+    "components": "S, M (uma pequena quantidade de maquiagem)",
+    "duration": "Concentração, até 1 minuto",
+    "description": "Pela duração da magia, você tem Vantagem em testes de Carisma contra uma criatura não Hostil à sua escolha. Quando a magia termina, a criatura sabe que foi alvo de magia de encantamento e fica Hostil a você.",
+    "upcast": "",
+    "concentration": true,
+    "ritual": false
+  },
+  {
     "name": "Amizade Animal",
     "circle": 1,
     "school": "Encantamento",
@@ -151,6 +170,27 @@
     "duration": "Concentração, até 1 hora",
     "description": "Ao conjurar a magia, decida se ela cria antipatia ou simpatia, e escolha como alvo uma criatura ou objeto que seja Enorme ou menor. Em seguida, especifique um tipo de criatura, como dragões vermelhos, goblins ou vampiros. Uma criatura do tipo escolhido realiza uma salvaguarda de Sabedoria quando estiver a até 36 metros do alvo. Sua escolha entre antipatia ou simpatia determina o que acontece com uma criatura ao falhar nessa salvaguarda: Antipatia: A criatura tem a condição Amedrontado. A criatura Amedrontada deve usar o movimento nos turnos dela para se afastar o máximo possível do alvo, movendo-se pela rota mais segura. Simpatia: A criatura tem a condição Enfeitiçado. A criatura Enfeitiçada",
     "upcast": "Você pode escolher uma criatura adicional para cada círculo de espaço de magia acima de 2. Você pode escolher um atributo diferente para cada alvo.",
+    "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Aprimorar Atributo",
+    "circle": 2,
+    "school": "Transmutação",
+    "classes": [
+      "Bardo",
+      "Clérigo",
+      "Druida",
+      "Feiticeiro",
+      "Guardião",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "Toque",
+    "components": "V, S, M (pelo ou pena de um animal)",
+    "duration": "Concentração, até 1 hora",
+    "description": "Você toca uma criatura e a conjura com um aprimoramento mágico. Escolha um dos seguintes efeitos: Força do Urso (Vantagem em testes de Força, +10 de capacidade de carga), Destreza do Gato (Vantagem em testes de Destreza, não cai de dano de queda até 9m), Resiliência do Urso (Vantagem em testes de Constituição, +2d6 de PV temporários), Inteligência do Corvo (Vantagem em testes de Inteligência), Sabedoria da Coruja (Vantagem em testes de Sabedoria), Carisma do Águia (Vantagem em testes de Carisma).",
+    "upcast": "Você pode ter como alvo uma criatura adicional para cada círculo acima de 2.",
     "concentration": true,
     "ritual": false
   },
@@ -254,6 +294,22 @@
     "duration": "8 horas",
     "description": "Você toca uma criatura voluntária que não está usando armadura. Até que a magia termine, a CA base do alvo se torna 13 mais o modificador de Destreza dele. A magia se encerra se o alvo vestir uma armadura.",
     "upcast": "",
+    "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Armadura de Agathys",
+    "circle": 1,
+    "school": "Abjuração",
+    "classes": [
+      "Bruxo"
+    ],
+    "castTime": "Ação Bônus",
+    "range": "Pessoal",
+    "components": "V, S, M (uma xícara de água)",
+    "duration": "1 hora",
+    "description": "Um frio mágico protetor envolve você. Você ganha 5 Pontos de Vida Temporários. Se uma criatura acertar você com um ataque corpo a corpo enquanto você tem esses PV temporários, a criatura sofre 5 de dano Gélido. A magia encerra quando os PV temporários se esgotam.",
+    "upcast": "Os PV temporários e o dano Gélido aumentam em 5 para cada círculo acima de 1.",
     "concentration": false,
     "ritual": false
   },
@@ -1174,6 +1230,22 @@
     "ritual": false
   },
   {
+    "name": "Convocar Familiar",
+    "circle": 1,
+    "school": "Invocação",
+    "classes": [
+      "Mago"
+    ],
+    "castTime": "1 hora ou Ritual",
+    "range": "3 metros",
+    "components": "V, S, M (carvão, incenso e ervas no valor de 10 PO, consumidos)",
+    "duration": "Instantânea",
+    "description": "Você ganha o serviço de um familiar, um espírito que assume uma forma animal à sua escolha (aranha, corvo, gato, falcão, lagarto, polvinho, rato, sapo, serpente, ou outra aprovada pelo DM). O familiar age independentemente, mas obedece seus comandos. Em combate, usa sua própria iniciativa. Você pode se comunicar telepaticamente com ele e ver/ouvir através dos sentidos dele como Ação Bônus.",
+    "upcast": "",
+    "concentration": false,
+    "ritual": true
+  },
+  {
     "name": "Convocar Feérico",
     "circle": 3,
     "school": "Invocação",
@@ -1759,6 +1831,22 @@
     "ritual": false
   },
   {
+    "name": "Destruição Atordoante",
+    "circle": 4,
+    "school": "Evocação",
+    "classes": [
+      "Paladino"
+    ],
+    "castTime": "Ação Bônus, que você realiza imediatamente após atingir uma criatura com uma arma Corpo a Corpo ou um Ataque Desarmado",
+    "range": "Pessoal",
+    "components": "V",
+    "duration": "Instantânea",
+    "description": "O alvo sofre 4d6 de dano Psíquico adicionais do ataque e deve ser bem-sucedido em uma salvaguarda de Sabedoria ou tem a condição Atordoado até o início do seu próximo turno.",
+    "upcast": "O dano aumenta em 1d6 para cada círculo acima de 4.",
+    "concentration": false,
+    "ritual": false
+  },
+  {
     "name": "Destruição Banidora",
     "circle": 5,
     "school": "Invocação",
@@ -1772,6 +1860,38 @@
     "description": "O alvo atingido pela jogada de ataque sofre um adicional de 5d10 pontos de dano Energético do ataque. Se o ataque reduzir o alvo a 50 Pontos de Vida ou menos, o alvo deve ser bem-sucedido em uma salvaguarda de Carisma ou é transportado para um semiplano inofensivo pela duração da magia. Enquanto estiver lá, o alvo tem a condição Incapacitado. Quando a magia termina, o alvo reaparece no espaço que deixou ou no espaço desocupado mais próximo se esse espaço estiver ocupado. 1º Círculo, Evocação (Paladino) 3º Círculo, Evocação (Paladino)",
     "upcast": "",
     "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Destruição Cauterizante",
+    "circle": 2,
+    "school": "Evocação",
+    "classes": [
+      "Paladino"
+    ],
+    "castTime": "Ação Bônus, que você realiza imediatamente após acertar um alvo com uma arma Corpo a Corpo ou um Ataque Desarmado",
+    "range": "Pessoal",
+    "components": "V",
+    "duration": "1 minuto",
+    "description": "O alvo sofre 2d8 de dano Ígneo adicional do ataque e deve realizar uma salvaguarda de Constituição. Em falha, o alvo não pode recuperar Pontos de Vida até que a magia termine. No final de cada turno, o alvo pode repetir a salvaguarda, encerrando a magia em sucesso.",
+    "upcast": "O dano aumenta em 1d8 para cada círculo acima de 2.",
+    "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Destruição Cegante",
+    "circle": 3,
+    "school": "Evocação",
+    "classes": [
+      "Paladino"
+    ],
+    "castTime": "Ação Bônus, que você realiza imediatamente após atingir uma criatura com uma arma Corpo a Corpo ou um Ataque Desarmado",
+    "range": "Pessoal",
+    "components": "V",
+    "duration": "1 minuto",
+    "description": "O alvo sofre 3d8 de dano Radiante adicional do ataque e deve realizar uma salvaguarda de Constituição. Em falha, o alvo tem a condição Cego até que a magia termine. No final de cada turno, o alvo pode repetir a salvaguarda, encerrando a magia em sucesso.",
+    "upcast": "O dano aumenta em 1d8 para cada círculo acima de 3.",
+    "concentration": false,
     "ritual": false
   },
   {
@@ -1946,6 +2066,40 @@
     "duration": "Concentração, até 1 minuto",
     "description": "3º Círculo, Abjuração (Bardo, Bruxo, Clérigo, Druida, Feiticeiro, Guardião, Mago, Paladino) Escolha uma criatura, objeto ou efeito mágico no alcance da magia. Qualquer magia ativa de 3º círculo ou inferior no alvo é encerrada. Para cada magia ativa de 4º círculo ou superior no alvo, realize um teste de atributo usando seu atributo de conjuração (CD 10 mais o círculo da magia alvo). Se falhar, a magia continua; se for bem-sucedido, a magia se encerra.",
     "upcast": "Você encerra automaticamente uma magia no alvo se o círculo da magia for igual ou inferior ao círculo do espaço de magia que você usa. RALPH HORSLEY Você faz com que você mesmo — incluindo suas roupas, armaduras, armas e outros pertences — pareça dif",
+    "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Dissipar o Bem e o Mal",
+    "circle": 5,
+    "school": "Abjuração",
+    "classes": [
+      "Clérigo",
+      "Paladino"
+    ],
+    "castTime": "Ação",
+    "range": "Pessoal",
+    "components": "V, S, M (prata e ferro em pó)",
+    "duration": "Concentração, até 1 minuto",
+    "description": "Pela duração, Celestiais, Elementais, Feéricos, Ínferos e Mortos-Vivos têm Desvantagem em jogadas de ataque contra você. Você pode usar uma das funções especiais como ação: Expulsar (criatura dessas categorias deve ter sucesso em Carisma ou ser teletransportada ao plano natal); Ruptura de Encantamento (encerra o encantamento de Feérico, Ínfero ou Celestial sobre uma criatura tocada).",
+    "upcast": "",
+    "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Dominar Monstro",
+    "circle": 8,
+    "school": "Encantamento",
+    "classes": [
+      "Bardo",
+      "Bruxo"
+    ],
+    "castTime": "Ação",
+    "range": "18 metros",
+    "components": "V, S",
+    "duration": "Concentração, até 1 hora",
+    "description": "Uma criatura à sua vista deve ter sucesso em uma salvaguarda de Sabedoria ou fica Enfeitiçada pela duração. O alvo tem Vantagem se você ou seus aliados estiverem lutando contra ele. Enquanto Enfeitiçado, você tem um elo telepático com ele e pode comandá-lo (sem gastar ação). Ao sofrer dano, o alvo repete a salvaguarda. Em sucesso, a magia termina.",
+    "upcast": "",
     "concentration": true,
     "ritual": false
   },
@@ -2233,6 +2387,22 @@
     "description": "Você cria uma esfera de fogo de 1,5 metro de diâmetro em um espaço desocupado no chão no alcance e pela duração da magia. Qualquer criatura que termine o turno a até 1,5 metro da esfera realiza uma salvaguarda de Destreza, sofrendo 2d6 pontos de dano Ígneo se falhar, ou metade desse dano em caso de sucesso. Como uma Ação Bônus, você pode mover a esfera até 9 metros, rolando-a pelo chão. Se você mover a esfera para o espaço de uma criatura, essa criatura realiza a salvaguarda contra a esfera, e a esfera para de se mover durante o turno. Ao mover a esfera, você pode direcioná-la sobre barreiras de até 1,5 metro de altura e saltar sobre poços de até 3 metros de largura. Objetos inflamáveis que ",
     "upcast": "O dano aumenta em 1d6 para cada círculo de espaço de magia acima de 2. tura envolta pode executar uma ação para empurrar-se contra as paredes da Esfera e, assim, rolar a Esfera a até metade do Deslocamento da criatura. Da mesma forma, o globo pode se",
     "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Esfera Resiliente de Otiluke",
+    "circle": 4,
+    "school": "Evocação",
+    "classes": [
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "9 metros",
+    "components": "V, S, M (uma esfera de vidro)",
+    "duration": "Concentração, até 1 minuto",
+    "description": "Uma Esfera cintilante de força envolve uma criatura ou objeto Grande ou menor no alcance. Uma criatura involuntária deve ter sucesso em Destreza ou é envolta. A esfera é à prova de dano, imune a todas as condições e não pode ser movida por forças mundanas. A criatura dentro pode respirar normalmente. Ela pode rolar para se mover (metade do deslocamento). Uma criatura voluntária pode repetir a salvaguarda ao final do turno.",
+    "upcast": "",
+    "concentration": true,
     "ritual": false
   },
   {
@@ -2704,6 +2874,22 @@
     "ritual": false
   },
   {
+    "name": "Guardiões Espirituais",
+    "circle": 3,
+    "school": "Invocação",
+    "classes": [
+      "Clérigo"
+    ],
+    "castTime": "Ação",
+    "range": "Pessoal",
+    "components": "V, S, M (um pergaminho de oração)",
+    "duration": "Concentração, até 10 minutos",
+    "description": "Você convoca espíritos para protegê-lo. Eles pairam em Emanação de 4,5 metros. Você escolhe Radiante ou Necrótico. Criaturas Hostis que entrarem ou iniciarem o turno na área realizam salvaguarda de Sabedoria: falha = 3d8 do tipo escolhido; sucesso = metade. O deslocamento de criaturas hostis na área é reduzido à metade.",
+    "upcast": "O dano aumenta em 1d8 para cada círculo acima de 3.",
+    "concentration": true,
+    "ritual": false
+  },
+  {
     "name": "Heroísmo",
     "circle": 1,
     "school": "Encantamento",
@@ -3062,6 +3248,22 @@
     "ritual": false
   },
   {
+    "name": "Invocar Saraivada",
+    "circle": 5,
+    "school": "Invocação",
+    "classes": [
+      "Guardião"
+    ],
+    "castTime": "Ação",
+    "range": "45 metros",
+    "components": "V, S, M (uma arma Corpo a Corpo ou à Distância no valor de 1 ou mais PP)",
+    "duration": "Instantânea",
+    "description": "Você brande a arma usada para conjurar a magia e escolhe um ponto no alcance. Centenas de armas espectrais similares chovem sobre cada criatura em uma Esfera de 9 metros centrada nesse ponto. Cada criatura realiza uma salvaguarda de Destreza, sofrendo 8d8 de dano (do tipo da arma) em falha, ou metade em sucesso.",
+    "upcast": "O dano aumenta em 1d8 para cada círculo acima de 5.",
+    "concentration": false,
+    "ritual": false
+  },
+  {
     "name": "Invocar Seres da Floresta",
     "circle": 4,
     "school": "Invocação",
@@ -3346,6 +3548,22 @@
     "description": "Você cria até quatro luzes do tamanho de tochas no alcance da magia, fazendo com que elas pareçam tochas, lanternas ou esferas brilhantes que pairam pela duração da magia. Como alternativa, você combina as quatro luzes em uma forma Média, brilhante, a qual é vagamente humanoide. Seja qual for a forma que você escolher, cada luz emite Meia-luz em um raio de 3 metros. Como uma Ação Bônus, você pode mover as luzes até 18 metros para um espaço no alcance da magia. Uma luz deve estar a até 6 metros de outra luz criada por esta magia, e uma luz desaparece se ultrapassar o alcance da magia. Malogro",
     "upcast": "",
     "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Lâmina Flamejante",
+    "circle": 2,
+    "school": "Evocação",
+    "classes": [
+      "Druida"
+    ],
+    "castTime": "Ação Bônus",
+    "range": "Pessoal",
+    "components": "V, S, M (uma folha de sumagre)",
+    "duration": "Concentração, até 10 minutos",
+    "description": "Uma lâmina flamejante toma forma em sua mão livre. A lâmina é semelhante a um cimitarra e dura pela duração. Se você soltar a arma ela se apaga. Você pode usar uma Ação para realizar um ataque corpo a corpo com a lâmina, causando 3d6 de dano Ígneo. A lâmina emite luz brilhante em um raio de 3m e penumbra por mais 3m. A lâmina ilumina Trevas Mágicas.",
+    "upcast": "O dano aumenta em 1d6 para círculos 4, 6 e 8.",
+    "concentration": true,
     "ritual": false
   },
   {
@@ -3634,6 +3852,22 @@
     "ritual": false
   },
   {
+    "name": "Montaria Fantasmagórica",
+    "circle": 3,
+    "school": "Ilusão",
+    "classes": [
+      "Mago"
+    ],
+    "castTime": "1 minuto ou Ritual",
+    "range": "9 metros",
+    "components": "V, S",
+    "duration": "1 hora",
+    "description": "Um cavalo fantasmagórico negro aparece no alcance e permanece pela duração. Você escolhe a aparência do cavalo, mas ele tem as estatísticas de um Cavalo de Guerra com Deslocamento de 30 metros. Ele não pode atacar e desaparece se sofrer qualquer dano. Você pode montá-lo gratuitamente ao conjurar a magia. Criaturas dentro de 18 metros de você não percebem a natureza sobrenatural da montaria.",
+    "upcast": "",
+    "concentration": false,
+    "ritual": true
+  },
+  {
     "name": "Movimentação Livre",
     "circle": 4,
     "school": "Abjuração",
@@ -3650,6 +3884,39 @@
     "description": "Você toca uma criatura voluntária. Pela duração da magia, o movimento do alvo não é afetado por Terreno Difícil, e magias e outros efeitos mágicos não podem reduzir o Deslocamento do alvo nem fazer com que ele tenha as condições Contido ou Paralisado. O alvo também tem um Deslocamento de Natação igual ao Deslocamento de caminhada. Além disso, o alvo pode gastar 1,5 metro de movimento para escapar automaticamente de restrições não mágicas, como grilhões ou uma criatura impondo a condição Imobilizado.",
     "upcast": "Você pode escolher uma criatura adicional para cada círculo de espaço de magia acima de 4. 5º Círculo, Evocação (Mago)",
     "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Muralha Prismática",
+    "circle": 9,
+    "school": "Abjuração",
+    "classes": [
+      "Bardo",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "18 metros",
+    "components": "V, S",
+    "duration": "10 minutos",
+    "description": "Uma parede cintilante multicolorida e opaca se ergue (até 27m comprimento, 9m altura). Criaturas dentro de 18m que a vejam ao surgir podem ser Cegas (salvaguarda de Constituição). Criaturas que passam pela parede sofrem 10d6 Ácido, 10d6 Fogo, 10d6 Relâmpago, 10d6 Frio, 10d6 Venenoso e 10d6 Psíquico, além de ficarem Petrificadas (Constituição) se sobreviverem.",
+    "upcast": "",
+    "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Muralha de Energia",
+    "circle": 5,
+    "school": "Evocação",
+    "classes": [
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "36 metros",
+    "components": "V, S, M (um caco de vidro)",
+    "duration": "Concentração, até 10 minutos",
+    "description": "Uma parede imóvel de força mágica se ergue em um ponto que você escolher. A parede pode ter até 9m de comprimento, 3m de altura e 1,5m de espessura, ou um anel de 9m de diâmetro. Criaturas que passam pela parede sofrem 5d8 de dano de Força. A parede bloqueia feitiços e outras magias.",
+    "upcast": "O dano aumenta em 1d8 para cada círculo acima de 5.",
+    "concentration": true,
     "ritual": false
   },
   {
@@ -3844,6 +4111,24 @@
     "ritual": false
   },
   {
+    "name": "Nuvem Incendiária",
+    "circle": 8,
+    "school": "Invocação",
+    "classes": [
+      "Druida",
+      "Feiticeiro",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "45 metros",
+    "components": "V, S",
+    "duration": "Concentração, até 1 minuto",
+    "description": "Uma nuvem rodopiante de brasas e fumaça preenche uma Esfera de 6 metros de raio. A área é Totalmente Obscurecida. Quando a nuvem aparece e no início de cada turno, cada criatura nela realiza salvaguarda de Destreza: falha = 10d8 Ígneo; sucesso = metade. Você pode mover a nuvem até 18 metros no seu turno.",
+    "upcast": "",
+    "concentration": true,
+    "ritual": false
+  },
+  {
     "name": "Nuvem de Adagas",
     "circle": 2,
     "school": "Invocação",
@@ -4017,6 +4302,24 @@
     "ritual": false
   },
   {
+    "name": "Palavra de Poder: Atordoar",
+    "circle": 8,
+    "school": "Encantamento",
+    "classes": [
+      "Bardo",
+      "Feiticeiro",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "18 metros",
+    "components": "V",
+    "duration": "Instantânea",
+    "description": "Você domina a mente de uma criatura à sua vista. Se o alvo tiver 150 Pontos de Vida ou menos, ele tem a condição Atordoado. Caso contrário, o Deslocamento dele é 0 até o início do seu próximo turno. O alvo Atordoado realiza uma salvaguarda de Constituição no final de cada turno, encerrando o efeito em sucesso.",
+    "upcast": "",
+    "concentration": false,
+    "ritual": false
+  },
+  {
     "name": "Palavra de Poder: Fortificar",
     "circle": 7,
     "school": "Encantamento",
@@ -4049,6 +4352,39 @@
     "duration": "Instantânea",
     "description": "Você obriga uma criatura à sua vista e no alcance da magia a morrer. Se o alvo tiver 100 Pontos de Vida ou menos, ele morre. Caso contrário, sofre 12d12 pontos",
     "upcast": "",
+    "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Palavra de Poder: Salvar",
+    "circle": 7,
+    "school": "Encantamento",
+    "classes": [
+      "Bardo",
+      "Clérigo"
+    ],
+    "castTime": "Ação",
+    "range": "18 metros",
+    "components": "V",
+    "duration": "Instantânea",
+    "description": "Até seis criaturas à sua escolha, à sua vista e no alcance da magia, recuperam Pontos de Vida iguais a 2d4 mais o seu modificador de atributo de conjuração.",
+    "upcast": "A cura aumenta em 1d4 para cada círculo acima de 3.",
+    "concentration": false,
+    "ritual": false
+  },
+  {
+    "name": "Palavra de Radiância",
+    "circle": 0,
+    "school": "Evocação",
+    "classes": [
+      "Clérigo"
+    ],
+    "castTime": "Ação",
+    "range": "Pessoal",
+    "components": "V, M (um símbolo com um raio de sol)",
+    "duration": "Instantânea",
+    "description": "Você profere uma palavra sagrada e uma centelha de luz divina irradia de você em Emanação de 1,5 metro. Cada criatura de sua escolha nessa área realiza salvaguarda de Constituição, sofrendo 1d6 de dano Radiante em falha.",
+    "upcast": "O dano aumenta em 1d6 quando você atinge os níveis 5 (2d6), 11 (3d6) e 17 (4d6).",
     "concentration": false,
     "ritual": false
   },
@@ -4319,6 +4655,25 @@
     "description": "Escolha uma criatura ou objeto não mágico à sua vista e no alcance da magia. A criatura se multimorfa para uma criatura diferente, um objeto não mágico, ou o objeto se multimorfa para uma criatura (o objeto não pode estar sendo usado nem carregado). A transformação permanece pela duração da magia ou até que o alvo morra ou seja destruído, mas se você mantiver a Concentração nesta magia pela duração completa, a magia permanece até ser dissipada. Uma criatura involuntária pode realizar uma salvaguarda de Sabedoria e, se for bem-sucedida, não é",
     "upcast": "",
     "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Porta Dimensional",
+    "circle": 4,
+    "school": "Invocação",
+    "classes": [
+      "Bardo",
+      "Bruxo",
+      "Feiticeiro",
+      "Mago"
+    ],
+    "castTime": "Ação",
+    "range": "500 metros",
+    "components": "V",
+    "duration": "Instantânea",
+    "description": "Você se teleporta para um local no alcance que você possa ver, imaginar ou descrever. Você pode trazer junto objetos ou uma criatura voluntária do seu tamanho ou menor que esteja ao seu alcance. Se você chegar a um local ocupado, você e as criaturas transportadas sofrem 4d6 de dano de Força e a magia falha.",
+    "upcast": "",
+    "concentration": false,
     "ritual": false
   },
   {
@@ -4999,6 +5354,26 @@
     "ritual": false
   },
   {
+    "name": "Restauração Menor",
+    "circle": 2,
+    "school": "Abjuração",
+    "classes": [
+      "Bardo",
+      "Clérigo",
+      "Druida",
+      "Guardião",
+      "Paladino"
+    ],
+    "castTime": "Ação Bônus",
+    "range": "Toque",
+    "components": "V, S",
+    "duration": "Instantânea",
+    "description": "Você toca uma criatura e remove uma das seguintes condições: Cego, Envenenado, Paralisado ou Surdo.",
+    "upcast": "",
+    "concentration": false,
+    "ritual": false
+  },
+  {
     "name": "Retirada Acelerada",
     "circle": 1,
     "school": "Transmutação",
@@ -5103,6 +5478,22 @@
     "upcast": "Você pode aumentar o tamanho do Cubo em 30 metros para cada círculo de espaço de magia acima de 4. Saraivada de Espinhos Servo Invisível imediatamente após atingir uma criatura com um ataque com arma à Distância 1º Círculo, Invocação (Guardião) Ao at",
     "concentration": false,
     "ritual": true
+  },
+  {
+    "name": "Saraivada de Espinhos",
+    "circle": 1,
+    "school": "Invocação",
+    "classes": [
+      "Guardião"
+    ],
+    "castTime": "Ação Bônus, que você realiza imediatamente após atingir uma criatura com um ataque com arma à Distância",
+    "range": "Pessoal",
+    "components": "V",
+    "duration": "Instantânea",
+    "description": "Ao atingir uma criatura, essa magia faz surgir uma chuva de espinhos a partir da sua arma à distância ou munição. O alvo e cada criatura em um raio de 1,5 metro dele devem ser bem-sucedidos em uma salvaguarda de Destreza ou sofrer 1d10 de dano Perfurante.",
+    "upcast": "O dano aumenta em 1d10 para cada círculo acima de 1.",
+    "concentration": false,
+    "ritual": false
   },
   {
     "name": "Semiplano",
@@ -5521,6 +5912,25 @@
     "description": "Escolha um ponto no chão à sua vista e no alcance da magia. Pela duração da magia, um tremor intenso rasga o chão em um círculo de 30 metros de raio centrado neste ponto. O terreno é Terreno Difícil. Ao conjurar esta magia e no final de cada um dos seus turnos pela duração da magia, cada criatura no chão na área realiza uma salvaguarda de Destreza. Se falhar, uma criatura tem a condição Caído e a Concentração dela é quebrada. Você também pode causar os efeitos abaixo. Estruturas. O tremor causa 50 pontos de dano Contundente em qualquer estrutura em contato com o chão na área quando você conjura a magia e no final de cada um dos seus turnos até que a magia termine. Se uma estrutura é reduzida",
     "upcast": "O dano aumenta em 1d6 para cada círculo de espaço de",
     "concentration": true,
+    "ritual": false
+  },
+  {
+    "name": "Terreno Alucinatório",
+    "circle": 4,
+    "school": "Ilusão",
+    "classes": [
+      "Bardo",
+      "Bruxo",
+      "Druida",
+      "Mago"
+    ],
+    "castTime": "10 minutos",
+    "range": "90 metros",
+    "components": "V, S, M (um cogumelo)",
+    "duration": "24 horas",
+    "description": "Você cria uma ilusão de terreno natural em um cubo de 45 metros que possui a aparência, o som e o cheiro de outro tipo de terreno natural. Campos podem parecer pântanos, colinas ou florestas. Estruturas artificiais, equipamentos e criaturas visíveis não se alteram. A ilusão não passa no tato físico — criatura que toca o terreno percebe a ilusão.",
+    "upcast": "",
+    "concentration": false,
     "ritual": false
   },
   {
