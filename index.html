@@ -160,6 +160,39 @@
       box-shadow: 0 0 10px var(--chip-color, var(--gold))44;
     }
 
+    /* Toggle chips — independent on/off, not mutually exclusive */
+    .toggle-chip {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-family: 'Cinzel', serif;
+      color: var(--text3);
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .toggle-chip .toggle-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--toggle-color, var(--gold));
+      opacity: 0.35;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .toggle-chip.active {
+      color: #fff;
+      border-color: var(--toggle-color, var(--gold));
+      background: color-mix(in srgb, var(--toggle-color, var(--gold)) 18%, transparent);
+      box-shadow: 0 0 8px var(--toggle-color, var(--gold))33;
+    }
+    .toggle-chip.active .toggle-dot { opacity: 1; }
+
     /* ══════════════════════════════════════
        CONTENT AREA
     ══════════════════════════════════════ */
@@ -564,6 +597,16 @@
       <span class="filter-label">Classe</span>
       <div class="filters" id="class-filters"></div>
     </div>
+    <div class="filters-divider"></div>
+    <div class="filter-row">
+      <span class="filter-label">Conjuração</span>
+      <div class="filters" id="casttime-filters"></div>
+    </div>
+    <div class="filters-divider"></div>
+    <div class="filter-row">
+      <span class="filter-label">Tipo</span>
+      <div class="filters" id="toggle-filters"></div>
+    </div>
   </div>
 </div>
 
@@ -662,8 +705,11 @@ const CLASS_COLORS = {
    STATE
 ══════════════════════════════════════ */
 let allSpells = [];
-let activeSchool = null;
-let activeClass  = null;
+let activeSchool   = null;
+let activeClass    = null;
+let activeCastTime = null;   // null | cast-time key string
+let filterConc     = false;  // toggle: Concentração
+let filterRitual   = false;  // toggle: Ritual
 let searchVal = '';
 let currentTab = 'all';
 let currentSpell = null;
@@ -730,11 +776,14 @@ function attachListeners(container, spellArray, listId) {
    RENDER ALL
 ══════════════════════════════════════ */
 function renderAll() {
-  const q = searchVal.toLowerCase();
+  const q = searchVal.toLowerCase().trim();
   const list = allSpells.filter(s => {
-    if (activeSchool && s.school !== activeSchool) return false;
-    if (activeClass  && !s.classes.includes(activeClass)) return false;
-    if (q && !s.name.toLowerCase().includes(q) && !s.school.toLowerCase().includes(q)) return false;
+    if (activeSchool   && s.school !== activeSchool)          return false;
+    if (activeClass    && !s.classes.includes(activeClass))   return false;
+    if (activeCastTime && !CAST_TIMES[activeCastTime].match(s)) return false;
+    if (filterConc     && !s.concentration)                   return false;
+    if (filterRitual   && !s.ritual)                          return false;
+    if (q              && !s._search.includes(q))             return false;
     return true;
   });
 
@@ -969,8 +1018,55 @@ function buildClassFilters() {
 }
 
 /* ══════════════════════════════════════
-   SEARCH
+   CAST TIME FILTERS
 ══════════════════════════════════════ */
+const CAST_TIMES = {
+  'Ação':       { label: 'Ação',       match: s => /^1 [Aa]ção(?!\s*[Bb]ônus)/i.test(s.castTime) },
+  'Ação Bônus': { label: 'Ação Bônus', match: s => /[Bb]ônus/i.test(s.castTime) },
+  'Reação':     { label: 'Reação',     match: s => /[Rr]ea[çc]ão/i.test(s.castTime) },
+  '1 Minuto':   { label: '1 Minuto',   match: s => /[Mm]inuto/i.test(s.castTime) },
+};
+
+function buildCastTimeFilters() {
+  const c = document.getElementById('casttime-filters');
+  let html = `<button class="chip active" style="--chip-color:var(--gold)" data-cast="">Qualquer</button>`;
+  Object.keys(CAST_TIMES).forEach(key => {
+    html += `<button class="chip" style="--chip-color:var(--text2)" data-cast="${key}">${CAST_TIMES[key].label}</button>`;
+  });
+  c.innerHTML = html;
+  c.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCastTime = btn.dataset.cast || null;
+      c.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAll();
+    });
+  });
+}
+
+/* ══════════════════════════════════════
+   TOGGLE FILTERS (Concentração / Ritual)
+══════════════════════════════════════ */
+function buildToggleFilters() {
+  const c = document.getElementById('toggle-filters');
+  c.innerHTML = `
+    <button class="toggle-chip" id="toggle-conc" style="--toggle-color:#d4a820" data-toggle="conc">
+      <span class="toggle-dot"></span>Concentração
+    </button>
+    <button class="toggle-chip" id="toggle-ritual" style="--toggle-color:#9b59b6" data-toggle="ritual">
+      <span class="toggle-dot"></span>Ritual
+    </button>`;
+  document.getElementById('toggle-conc').addEventListener('click', () => {
+    filterConc = !filterConc;
+    document.getElementById('toggle-conc').classList.toggle('active', filterConc);
+    renderAll();
+  });
+  document.getElementById('toggle-ritual').addEventListener('click', () => {
+    filterRitual = !filterRitual;
+    document.getElementById('toggle-ritual').classList.toggle('active', filterRitual);
+    renderAll();
+  });
+}
 document.getElementById('search').addEventListener('input', e => {
   searchVal = e.target.value;
   renderAll();
@@ -987,8 +1083,14 @@ fetch('spells.json')
       if (a.circle !== b.circle) return a.circle - b.circle;
       return a.name.localeCompare(b.name, 'pt-BR');
     });
+    // Pre-build search index: name + school + description
+    allSpells.forEach(s => {
+      s._search = `${s.name} ${s.school} ${s.description || ''}`.toLowerCase();
+    });
     buildFilters();
     buildClassFilters();
+    buildCastTimeFilters();
+    buildToggleFilters();
     renderAll();
     updateBadge();
   })
