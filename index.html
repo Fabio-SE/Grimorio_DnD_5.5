@@ -14,19 +14,20 @@
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
     :root {
-      --bg:        #12091f;
-      --surface:   #1c1030;
-      --surface2:  #261845;
-      --surface3:  #301f55;
-      --border:    #332255;
-      --border2:   #442f77;
+      --bg:        #0d0718;
+      --surface:   #130d24;
+      --surface2:  #1c1438;
+      --surface3:  #251b4a;
+      --border:    #281e42;
+      --border2:   #3a2960;
       --text:      #ede8f8;
-      --text2:     #8870b0;
-      --text3:     #5a4880;
-      --gold:      #d4a820;
+      --text2:     #7a60a8;
+      --text3:     #4a3870;
+      --gold:      #c8960e;
       --gold2:     #f0c840;
-      --gold-dim:  #7a5a08;
-      --red:       #e05060;
+      --gold-dim:  #6a4a06;
+      --gold-glow: #c8960e33;
+      --ambient:   #c8960e;   /* changes per active school */
       --safe-top:    env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -43,46 +44,80 @@
     }
 
     /* ══════════════════════════════════════
+       AMBIENT BACKGROUND — star field
+    ══════════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 12% 18%, #ffffff22 0%, transparent 100%),
+        radial-gradient(1px 1px at 34% 72%, #ffffff18 0%, transparent 100%),
+        radial-gradient(1px 1px at 56% 35%, #ffffff1a 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 55%, #ffffff15 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 22%, #ffffff20 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 23% 88%, #ffffff12 0%, transparent 100%),
+        radial-gradient(1px 1px at 67% 91%, #ffffff16 0%, transparent 100%),
+        radial-gradient(2px 2px at 8% 45%, var(--ambient) 0%, transparent 100%),
+        radial-gradient(2px 2px at 92% 80%, var(--ambient) 0%, transparent 100%);
+      opacity: 0.5;
+      transition: opacity 1s;
+    }
+
+    /* ══════════════════════════════════════
        TOP BAR
     ══════════════════════════════════════ */
     .topbar {
-      background: linear-gradient(180deg, #1e1238 0%, var(--surface) 100%);
+      background: linear-gradient(180deg, #160e2d 0%, var(--surface) 100%);
       border-bottom: 1px solid var(--border);
-      padding: calc(var(--safe-top) + 14px) 16px 12px;
+      padding: calc(var(--safe-top) + 12px) 16px 10px;
       flex-shrink: 0;
       position: relative;
+      z-index: 10;
+      /* ambient color bleeds through bottom edge */
+      box-shadow: 0 1px 0 var(--border), 0 2px 20px #00000066;
     }
+    /* golden rule line */
     .topbar::after {
       content: '';
       position: absolute;
       bottom: -1px; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      background: linear-gradient(90deg, transparent 0%, var(--ambient) 40%, var(--gold2) 50%, var(--ambient) 60%, transparent 100%);
+      opacity: 0.5;
+      transition: background 0.6s ease;
     }
 
     .topbar-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .topbar-title {
       font-family: 'Cinzel', serif;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 900;
-      color: var(--gold);
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px #d4a82044;
+      color: var(--gold2);
+      letter-spacing: 3px;
+      text-shadow: 0 0 24px var(--gold-glow), 0 0 60px var(--gold-glow);
+      animation: titlePulse 4s ease-in-out infinite;
+    }
+    @keyframes titlePulse {
+      0%, 100% { text-shadow: 0 0 16px var(--gold-glow), 0 0 40px var(--gold-glow); }
+      50%       { text-shadow: 0 0 28px #c8960e55, 0 0 70px #c8960e22; }
     }
     .topbar-count {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text3);
       font-family: 'Cinzel', serif;
       letter-spacing: 0.5px;
     }
 
     /* Search */
-    .search-wrap { position: relative; margin-bottom: 10px; }
+    .search-wrap { position: relative; margin-bottom: 8px; }
     .search-icon {
       position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%);
@@ -91,121 +126,114 @@
     #search {
       width: 100%;
       background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 12px 10px 36px;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 9px 12px 9px 36px;
       color: var(--text);
       font-size: 16px;
       font-family: inherit;
       outline: none;
       -webkit-appearance: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
     #search::placeholder { color: var(--text3); }
-    #search:focus { border-color: var(--gold-dim); background: var(--surface3); }
+    #search:focus {
+      border-color: var(--ambient);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--ambient) 15%, transparent),
+                  inset 0 1px 0 #ffffff08;
+    }
 
-    /* School chips */
+    /* Filter rows */
     .filters {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       overflow-x: auto;
       scrollbar-width: none;
       padding-bottom: 1px;
     }
     .filters::-webkit-scrollbar { display: none; }
-
-    .filter-row-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .filter-row-wrap { display: flex; flex-direction: column; gap: 5px; }
     .filter-label {
       font-family: 'Cinzel', serif;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 700;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       color: var(--text3);
       padding: 0 2px;
       flex-shrink: 0;
+      opacity: 0.8;
     }
-    .filter-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .filter-row { display: flex; align-items: center; gap: 6px; }
     .filters-divider {
       height: 1px;
-      background: var(--border);
-      margin: 2px 0;
-      opacity: 0.6;
+      background: linear-gradient(90deg, var(--border2), transparent);
+      margin: 1px 0;
     }
+
+    /* Chips */
     .chip {
       flex-shrink: 0;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 12px;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
       font-family: 'Cinzel', serif;
       color: var(--text3);
       background: transparent;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s;
+      transition: all 0.18s;
+      letter-spacing: 0.3px;
     }
+    .chip:active { transform: scale(0.95); }
     .chip.active {
       color: #fff;
       border-color: var(--chip-color, var(--gold));
-      background: var(--chip-color, var(--gold));
-      box-shadow: 0 0 10px var(--chip-color, var(--gold))44;
+      background: color-mix(in srgb, var(--chip-color, var(--gold)) 22%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--chip-color, var(--gold)) 40%, transparent),
+                  inset 0 1px 0 #ffffff18;
     }
 
-    /* Toggle chips — independent on/off, not mutually exclusive */
+    /* Toggle chips */
     .toggle-chip {
       flex-shrink: 0;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 12px;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
       font-family: 'Cinzel', serif;
       color: var(--text3);
       background: transparent;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s;
+      transition: all 0.18s;
       display: flex;
       align-items: center;
       gap: 5px;
     }
     .toggle-chip .toggle-dot {
-      width: 6px; height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--toggle-color, var(--gold));
-      opacity: 0.35;
-      transition: opacity 0.15s;
+      opacity: 0.3;
+      transition: all 0.18s;
       flex-shrink: 0;
     }
     .toggle-chip.active {
       color: #fff;
       border-color: var(--toggle-color, var(--gold));
       background: color-mix(in srgb, var(--toggle-color, var(--gold)) 18%, transparent);
-      box-shadow: 0 0 8px var(--toggle-color, var(--gold))33;
+      box-shadow: 0 0 10px color-mix(in srgb, var(--toggle-color, var(--gold)) 35%, transparent);
     }
-    .toggle-chip.active .toggle-dot { opacity: 1; }
+    .toggle-chip.active .toggle-dot { opacity: 1; box-shadow: 0 0 4px var(--toggle-color, var(--gold)); }
 
     /* ══════════════════════════════════════
        CONTENT AREA
     ══════════════════════════════════════ */
-    .content {
-      flex: 1;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
+    .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: 1; }
     .tab-panel { display: none; flex-direction: column; flex: 1; overflow: hidden; }
     .tab-panel.active { display: flex; }
-
     .list-wrap {
       flex: 1;
       overflow-y: auto;
@@ -214,53 +242,80 @@
     }
 
     /* ══════════════════════════════════════
-       SPELL ITEMS
+       CIRCLE SECTION HEADERS — torn divider
     ══════════════════════════════════════ */
+    .section-header {
+      position: relative;
+      margin-top: 4px;
+    }
+    /* torn SVG edge above label */
+    .section-torn {
+      display: block;
+      width: 100%;
+      height: 10px;
+      overflow: hidden;
+    }
+    .section-torn svg { display: block; width: 100%; height: 100%; }
     .section-label {
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text3);
-      padding: 12px 16px 4px;
+      padding: 4px 16px 6px;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+    .section-label::before, .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border2), transparent);
+    }
+    .section-label::before { background: linear-gradient(90deg, transparent, var(--border2)); }
 
+    /* ══════════════════════════════════════
+       SPELL ITEMS
+    ══════════════════════════════════════ */
     .spell-item {
       display: flex;
       align-items: center;
-      padding: 12px 16px;
+      padding: 11px 16px;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       gap: 12px;
-      transition: background 0.1s;
+      transition: background 0.12s;
       position: relative;
+      overflow: hidden;
     }
+    /* gradient bleed from school color */
     .spell-item::before {
       content: '';
       position: absolute;
       left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--school-color, transparent);
-      opacity: 0;
-      transition: opacity 0.15s;
+      width: 48px;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--school-color) 14%, transparent) 0%, transparent 100%);
+      pointer-events: none;
     }
     .spell-item:active { background: var(--surface2); }
-    .spell-item:active::before { opacity: 1; }
 
     .school-bar {
-      width: 3px;
+      width: 2px;
       align-self: stretch;
-      border-radius: 2px;
+      border-radius: 1px;
       background: var(--school-color);
       flex-shrink: 0;
-      opacity: 0.7;
+      opacity: 0.9;
+      box-shadow: 0 0 6px var(--school-color);
     }
 
     .spell-item-body { flex: 1; min-width: 0; }
     .spell-item-name {
       font-family: 'Cinzel', serif;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text);
       white-space: nowrap;
@@ -269,40 +324,50 @@
       line-height: 1.3;
     }
     .spell-item-sub {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text2);
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .spell-item-sub .school-name { color: var(--school-color); }
 
     .spell-item-right {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-shrink: 0;
     }
     .mini-tag {
-      font-size: 9px;
+      font-size: 8.5px;
       font-family: 'Cinzel', serif;
       font-weight: 700;
       padding: 2px 5px;
-      border-radius: 4px;
-      color: rgba(255,255,255,0.85);
+      border-radius: 3px;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.3px;
     }
     .fav-btn {
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1;
       padding: 4px;
       color: var(--text3);
       transition: all 0.15s;
       border-radius: 50%;
     }
-    .fav-btn.saved { color: var(--gold); text-shadow: 0 0 8px var(--gold)88; }
+    .fav-btn.saved {
+      color: var(--gold2);
+      text-shadow: 0 0 10px var(--gold), 0 0 20px #c8960e44;
+      animation: starPop 0.3s ease;
+    }
+    @keyframes starPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
     .fav-btn:active { transform: scale(1.3); }
-    .chevron { color: var(--text3); font-size: 16px; }
+    .chevron { color: var(--text3); font-size: 14px; opacity: 0.6; }
 
     /* ══════════════════════════════════════
        EMPTY STATES
@@ -315,33 +380,37 @@
       flex: 1;
       padding: 60px 32px;
       text-align: center;
-      gap: 12px;
+      gap: 14px;
     }
-    .empty-icon { font-size: 48px; opacity: 0.3; }
+    .empty-icon { font-size: 44px; opacity: 0.2; }
     .empty-title {
       font-family: 'Cinzel', serif;
-      font-size: 15px;
+      font-size: 14px;
+      letter-spacing: 1px;
       color: var(--text3);
     }
-    .empty-sub { font-size: 14px; color: var(--text3); opacity: 0.7; line-height: 1.5; }
+    .empty-sub { font-size: 14px; color: var(--text3); opacity: 0.6; line-height: 1.6; font-style: italic; }
 
     /* ══════════════════════════════════════
        BOTTOM NAV
     ══════════════════════════════════════ */
     .bottom-nav {
-      background: var(--surface);
+      background: linear-gradient(0deg, #0a0614 0%, var(--surface) 100%);
       border-top: 1px solid var(--border);
       display: flex;
       padding-bottom: var(--safe-bottom);
       flex-shrink: 0;
       position: relative;
+      z-index: 10;
     }
     .bottom-nav::before {
       content: '';
       position: absolute;
       top: -1px; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      background: linear-gradient(90deg, transparent, var(--ambient), transparent);
+      opacity: 0.4;
+      transition: background 0.6s;
     }
     .nav-btn {
       flex: 1;
@@ -354,88 +423,126 @@
       align-items: center;
       gap: 3px;
       color: var(--text3);
-      transition: color 0.15s;
+      transition: color 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
-    .nav-btn.active { color: var(--gold); }
-    .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .nav-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.5px; }
+    .nav-btn.active { color: var(--gold2); }
+    .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-label { font-family: 'Cinzel', serif; font-size: 8.5px; letter-spacing: 0.8px; }
     .nav-badge {
       position: absolute;
       top: 6px; right: calc(50% - 18px);
       background: var(--gold);
       color: #000;
-      font-size: 9px;
+      font-size: 8px;
       font-family: 'Cinzel', serif;
       font-weight: 700;
-      min-width: 16px;
-      height: 16px;
+      min-width: 15px;
+      height: 15px;
       border-radius: 8px;
-      padding: 0 4px;
+      padding: 0 3px;
       display: flex;
       align-items: center;
       justify-content: center;
       display: none;
+      box-shadow: 0 0 8px var(--gold-glow);
     }
     .nav-badge.visible { display: flex; }
 
     /* ══════════════════════════════════════
-       DETAIL SHEET
+       DETAIL SHEET — atmospheric redesign
     ══════════════════════════════════════ */
     .overlay {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(5, 2, 14, 0.8);
       z-index: 200;
       display: none;
       align-items: flex-end;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
     .overlay.open { display: flex; }
 
     .sheet {
       background: var(--surface);
-      border-radius: 20px 20px 0 0;
+      border-radius: 22px 22px 0 0;
       width: 100%;
       max-height: 94dvh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding-bottom: calc(var(--safe-bottom) + 32px);
       transform: translateY(100%);
-      transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
-      border-top: 1px solid var(--border2);
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+      border: 1px solid var(--border2);
+      border-bottom: none;
     }
     .overlay.open .sheet { transform: translateY(0); }
 
     .sheet-handle {
-      width: 36px; height: 4px;
+      width: 32px; height: 3px;
       background: var(--border2);
       border-radius: 2px;
-      margin: 14px auto 0;
+      margin: 12px auto 0;
     }
 
-    .sheet-school-strip {
-      height: 4px;
-      margin: 12px 20px 0;
-      border-radius: 2px;
-      background: var(--school-color, var(--gold));
-    }
-
-    .sheet-header {
-      padding: 14px 20px 16px;
+    /* Atmospheric hero section of the sheet */
+    .sheet-hero {
+      position: relative;
+      padding: 20px 20px 18px;
+      overflow: hidden;
       border-bottom: 1px solid var(--border);
+    }
+    /* radial glow behind the school color */
+    .sheet-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 100% 120% at 85% 50%,
+        color-mix(in srgb, var(--sheet-color, #888) 20%, transparent) 0%,
+        transparent 70%);
+      pointer-events: none;
+    }
+    /* large ghost school label */
+    .sheet-school-ghost {
+      position: absolute;
+      right: 16px; bottom: -4px;
+      font-family: 'Cinzel', serif;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--sheet-color, #888);
+      opacity: 0.07;
+      line-height: 1;
+      pointer-events: none;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    /* top accent line */
+    .sheet-hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 20px; right: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--sheet-color, var(--gold)), transparent);
+      opacity: 0.7;
+      border-radius: 1px;
+    }
+
+    .sheet-hero-top {
       display: flex;
       gap: 12px;
       align-items: flex-start;
+      position: relative;
     }
-    .sheet-header-text { flex: 1; min-width: 0; }
+    .sheet-hero-text { flex: 1; min-width: 0; }
     .sheet-name {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 8px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px color-mix(in srgb, var(--sheet-color, transparent) 30%, transparent);
     }
     .sheet-meta {
       display: flex;
@@ -445,39 +552,44 @@
     }
     .sheet-circle {
       font-family: 'Cinzel', serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.5px;
     }
     .sheet-tag {
-      font-size: 10px;
+      font-size: 9.5px;
       font-family: 'Cinzel', serif;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 4px;
       color: rgba(255,255,255,0.9);
+      letter-spacing: 0.3px;
     }
     .sheet-fav-btn {
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 12px;
+      background: color-mix(in srgb, var(--sheet-color, var(--gold)) 10%, var(--surface2));
+      border: 1px solid color-mix(in srgb, var(--sheet-color, var(--border2)) 40%, var(--border2));
+      border-radius: 10px;
       padding: 8px 14px;
-      font-size: 18px;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.18s;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       gap: 6px;
       color: var(--text3);
       font-family: 'Cinzel', serif;
-      font-size: 12px;
+      font-size: 11px;
     }
-    .sheet-fav-btn .star { font-size: 18px; line-height: 1; }
-    .sheet-fav-btn.saved { border-color: var(--gold); color: var(--gold); background: #d4a82011; }
+    .sheet-fav-btn .star { font-size: 17px; line-height: 1; }
+    .sheet-fav-btn.saved {
+      border-color: var(--gold);
+      color: var(--gold2);
+      background: #c8960e18;
+      box-shadow: 0 0 12px #c8960e22;
+    }
     .sheet-fav-btn:active { transform: scale(0.95); }
 
-    /* Props */
+    /* Props grid */
     .sheet-props {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -487,20 +599,21 @@
       padding: 12px 20px;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      position: relative;
     }
     .sheet-prop:nth-child(even) { border-right: none; }
     .sheet-prop-label {
       font-family: 'Cinzel', serif;
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 4px;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      opacity: 0.8;
     }
     .sheet-prop-val {
       font-size: 14px;
       color: var(--text);
-      font-weight: 500;
       line-height: 1.35;
     }
 
@@ -508,46 +621,48 @@
     .sheet-body { padding: 18px 20px; }
     .sheet-desc {
       font-size: 17px;
-      line-height: 1.72;
+      line-height: 1.76;
       color: var(--text);
     }
     .sheet-upcast {
-      margin-top: 16px;
-      padding: 12px 16px;
-      border-radius: 10px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 8px;
       background: var(--surface2);
-      border-left: 3px solid var(--text3);
+      border-left: 2px solid var(--text3);
       font-size: 15px;
       line-height: 1.65;
       color: var(--text2);
       font-style: italic;
+      position: relative;
     }
     .sheet-upcast-label {
       font-style: normal;
       display: block;
       font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.8px;
+      font-size: 9px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 6px;
+      opacity: 0.7;
     }
 
     /* Classes */
-    .sheet-classes { padding: 0 20px 8px; border-top: 1px solid var(--border); }
+    .sheet-classes { padding: 0 20px 10px; border-top: 1px solid var(--border); }
     .sheet-classes-label {
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       color: var(--text3);
       padding: 14px 0 8px;
     }
     .sheet-classes-list { display: flex; flex-wrap: wrap; gap: 6px; }
     .class-pill {
-      font-size: 13px;
-      padding: 5px 13px;
-      border-radius: 20px;
+      font-size: 12.5px;
+      padding: 5px 12px;
+      border-radius: 6px;
       border: 1px solid var(--border2);
       color: var(--text2);
       background: var(--surface2);
@@ -557,22 +672,19 @@
        LOADING
     ══════════════════════════════════════ */
     .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      gap: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      flex: 1; gap: 16px;
     }
     .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--border);
+      width: 32px; height: 32px;
+      border: 2px solid var(--border);
       border-top-color: var(--gold);
       border-radius: 50%;
-      animation: spin 0.75s linear infinite;
+      animation: spin 0.7s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-text { font-family: 'Cinzel', serif; font-size: 13px; color: var(--text3); letter-spacing: 1px; }
+    .loading-text { font-family: 'Cinzel', serif; font-size: 12px; color: var(--text3); letter-spacing: 1.5px; }
   </style>
 </head>
 <body>
@@ -647,16 +759,18 @@
 <div class="overlay" id="overlay">
   <div class="sheet" id="sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-school-strip" id="sheet-strip"></div>
-    <div class="sheet-header">
-      <div class="sheet-header-text">
-        <div class="sheet-name" id="sheet-name"></div>
-        <div class="sheet-meta" id="sheet-meta"></div>
+    <div class="sheet-hero" id="sheet-hero">
+      <div class="sheet-school-ghost" id="sheet-school-ghost"></div>
+      <div class="sheet-hero-top">
+        <div class="sheet-hero-text">
+          <div class="sheet-name" id="sheet-name"></div>
+          <div class="sheet-meta" id="sheet-meta"></div>
+        </div>
+        <button class="sheet-fav-btn" id="sheet-fav-btn" onclick="toggleFavFromSheet()">
+          <span class="star" id="sheet-fav-star">☆</span>
+          <span id="sheet-fav-label">Salvar</span>
+        </button>
       </div>
-      <button class="sheet-fav-btn" id="sheet-fav-btn" onclick="toggleFavFromSheet()">
-        <span class="star" id="sheet-fav-star">☆</span>
-        <span id="sheet-fav-label">Salvar</span>
-      </button>
     </div>
     <div class="sheet-props" id="sheet-props"></div>
     <div class="sheet-body">
@@ -809,7 +923,9 @@ function renderAll() {
 
   Object.keys(groups).sort((a,b) => +a - +b).forEach(circle => {
     const label = circle === '0' ? 'Truques' : `${circle}º Círculo`;
-    html += `<div class="section-label">${label}</div>`;
+    html += `<div class="section-header">
+      <div class="section-label">${label}</div>
+    </div>`;
     groups[circle].forEach(s => {
       html += spellItemHTML(s, globalList.length, 'all');
       globalList.push(s);
@@ -914,13 +1030,19 @@ function openDetail(s) {
   currentSpell = s;
   const color = SC[s.school] || '#888';
 
-  document.getElementById('sheet-strip').style.background = color;
+  // Set CSS var for the hero atmospheric glow
+  const hero = document.getElementById('sheet-hero');
+  hero.style.setProperty('--sheet-color', color);
+
+  // Ghost school name in the background
+  document.getElementById('sheet-school-ghost').textContent = s.school;
+
   document.getElementById('sheet-name').textContent = s.name;
 
   document.getElementById('sheet-meta').innerHTML = [
-    `<span class="sheet-circle" style="color:${color}">${circleLabel(s.circle)} de ${s.school}</span>`,
-    s.concentration ? `<span class="sheet-tag" style="background:${color}99">Concentração</span>` : '',
-    s.ritual ? `<span class="sheet-tag" style="background:#55336688">Ritual</span>` : '',
+    `<span class="sheet-circle" style="color:${color}">${circleLabel(s.circle)} · ${s.school}</span>`,
+    s.concentration ? `<span class="sheet-tag" style="background:color-mix(in srgb,${color} 30%,#000)">Concentração</span>` : '',
+    s.ritual ? `<span class="sheet-tag" style="background:#33226688">Ritual</span>` : '',
   ].filter(Boolean).join('');
 
   document.getElementById('sheet-props').innerHTML = [
@@ -988,6 +1110,9 @@ function buildFilters() {
       activeSchool = btn.dataset.school || null;
       c.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      // Update ambient glow color
+      const ambientColor = activeSchool ? SC[activeSchool] : 'var(--gold)';
+      document.documentElement.style.setProperty('--ambient', activeSchool ? SC[activeSchool] : '#c8960e');
       renderAll();
     });
   });
@@ -1078,7 +1203,7 @@ document.getElementById('search').addEventListener('input', e => {
 fetch('spells.json')
   .then(r => r.json())
   .then(data => {
-    allSpells = data.filter(s => s.name.length < 50 && !s.name.endsWith(','));
+    allSpells = data;
     allSpells.sort((a, b) => {
       if (a.circle !== b.circle) return a.circle - b.circle;
       return a.name.localeCompare(b.name, 'pt-BR');
